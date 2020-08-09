@@ -1,0 +1,85 @@
+<html >
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<script src="app.js"></script>
+
+<head>
+	<title>Main Page</title>
+	<style>
+	table {
+	  font-family: arial, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+	
+	td, th {
+	  border: 1px solid #dddddd;
+	  text-align: left;
+	  padding: 8px;
+	}
+	
+	tr:nth-child(even) {
+	  background-color: #dddddd;
+	}
+	</style>
+</head>
+
+<body ng-app="myApp" ng-controller="AppController" ng-init="init()">
+
+	<br><br>
+	<div>		
+		<label>Name: </label><input type="text" ng-model="user.name"/>
+		<label>CPF: </label><input type="text" ng-model="user.cpf" class="input-sm spacing"/>
+		<button ng-click="saveUser(user)" class="btn btn-sm btn-info">Save</button><br>
+	</div>
+
+<br>
+	<table id="users">
+		<tr>
+    <th>Name</th>
+    <th>CPF</th>
+    <th>ID</th>
+    <th>Skills</th>
+    
+ 	 </tr>
+	  <tr ng-repeat="u in users">
+	    <td>{{ u.name }}</td>
+	    <td>{{ u.cpf }}</td>
+	    <td>{{ u.id }}</td>	
+	  </tr>
+	</table>
+	<br>	
+	<table>
+	  <tr ng-repeat="x in skills">
+	    <td>{{ x.skillID }}</td>
+	    <td>{{ x.skillName }}</td>
+	  </tr>
+	</table>
+	<br>
+	
+	<div>
+		<label>Search by ID:</label><input type="text" ng-model="user.id"/>
+		<button ng-click="searchById(user)" class="btn btn-sm btn-info">Search</button><br></br>
+		<h2>
+		<table id="userFound">
+		<tr>
+		    <th>Name</th>
+		    <th>CPF</th>		    		   
+ 	 	</tr>
+		<td> {{ userFound.name }} </td>
+		<td> {{ userFound.cpf }} </td>
+		</table>
+	</div>
+	
+	<br><br>
+	<div>
+		<label>Remove User: </label><input type="text" ng-model="user.delId"/>
+		<button ng-click="deleteUser(user)" class="btn btn-sm btn-info">Remove</button><br>
+	</div>
+	<br>
+	<div>
+		<button ng-click="list(user)">List</button>	
+		<!-- <span ng-repeat="skill in skills" class="list"<{{skill.skillName}}</span>-->
+	</div>		
+</body>
+
+</html>
