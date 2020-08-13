@@ -1,21 +1,40 @@
-package com.example.domain;
+package com.example.myapp.model;
 
-import com.example.myapp.constant.UserTypeEnum;
+public class Student {
 
-public class Student extends User {
-
+	private String name;
+	private Integer age;
 	private String course;
 	private Long departmentNumber;
 	private Long advisorNumber;
-	public Student() {
-	}
 
-	public Student(String name, Long reg_number, Integer age, String course, UserTypeEnum userType, Long departmentNumber, Long advisorNumber) {
-		super(name, reg_number, age, userType);
+	public Student(String name, Integer age, String course, String userType, Long departmentNumber, Long advisorNumber) {
+		this.name = name;
+		this.age = age;
 		this.course = course;
 		this.departmentNumber = departmentNumber;
 		this.advisorNumber = advisorNumber;
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Student() {
+	}
+
 	
 	public Long getDepartmentNumber() {
 		return departmentNumber;

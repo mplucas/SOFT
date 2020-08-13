@@ -1,12 +1,36 @@
 'use strict'
 
-var module = angular.module('myApp', [])
+var module = angular.module('myApp', []);
 module.controller('AppController', function($http, $scope, $window){
 		
+	$scope.userType = {
+	    availableOptions: [
+	      {id: '1', name: 'Student'},
+	      {id: '2', name: 'Professor'}
+		],
+    selectedOption: {id: '1', name: 'Student'} //This sets the default value of the select in the ui
+    };
+
+	$scope.coursesList = {
+		availableCourses: [
+			{courseName: 'Computer Science'},
+			{courseName: 'Physics Bachelor'},
+			{courseName: 'Chemistry Bachelor'},
+			{courseName: 'Mechanical Engineering'},
+			{courseName: 'Production Engineering'},
+			{courseName: 'Civil Engineering'}
+		],
+		course: {courseName: 'Computer Science'}
+	};
+	
 	
 	$scope.userDto = {
-            cpf: null,
             name: null,
+            age: null,
+			selectedOption: null,
+			classNumber: null,
+			speciality: null,
+			course: null
         };
 	
 	
@@ -14,18 +38,39 @@ module.controller('AppController', function($http, $scope, $window){
 		$scope.list();		
 	}
 	
-	$scope.saveUser = function(userDto){
+	$scope.saveUserAsStudent = function(userDto){
 		$http({
 			method: 'POST',
-			url: "http://localhost:8080/user",
+			url: "http://localhost:8080/student",
 			data: {
 				name: userDto.name,
 				age: userDto.age,
+				course: userDto.course.courseName
 				
 			}
 		}).success(function(response){			
 			$scope.list();
 		}).error(function(http, status){
+			console.log()
+			$window.alert("n deu boa" + status);
+		});
+	};
+	
+	$scope.saveUserAsProfessor = function(userDto){
+		$http({
+			method: 'POST',
+			url: "http://localhost:8080/professor",
+			data: {
+				name: userDto.name,
+				age: userDto.age,
+				classNumber: userDto.classNumber,
+				speciality: userDto.speciality,
+				
+			}
+		}).success(function(response){			
+			$scope.list();
+		}).error(function(http, status){
+			console.log()
 			$window.alert("n deu boa" + status);
 		});
 	};
@@ -33,11 +78,11 @@ module.controller('AppController', function($http, $scope, $window){
 	$scope.deleteUser = function(user){		
 		$http({
 			method: 'DELETE',
-			url: "http://localhost:8080/user",
+			url: "http://localhost:8080/delete",
 			params: { id: user.delId }
 		}).then(function(response){
 			$scope.list();
-			$window.alert("Removing...");			
+			$window.alert("Removing...");
 		});
 	};
 	

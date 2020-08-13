@@ -26,10 +26,35 @@
 <body ng-app="myApp" ng-controller="AppController" ng-init="init()">
 
 	<br><br>
-	<div>		
-		<label>Name: </label><input type="text" ng-model="user.name"/>
-		<label>CPF: </label><input type="text" ng-model="user.cpf" class="input-sm spacing"/>
-		<button ng-click="saveUser(user)" class="btn btn-sm btn-info">Save</button><br>
+	<div>	
+		<form name="myForm">
+		    <label for="mySelect">User type: </label>
+		    <select name="mySelect" id="mySelect"
+		      ng-options="option.name for option in userType.availableOptions track by option.id"
+		      ng-model="user.selectedOption"></select>
+  		</form>	
+		
+  		<!--  fields for the student -->
+		<div ng-show="user.selectedOption.id == 1">
+			<label>Name: </label><input type="text" ng-model="user.name"/><br>
+			<label>Your age: </label><input type="number" ng-model="user.age" class="input-sm spacing"/> <br>
+			<form>
+				<label for="courseSelect">Course: </label>
+				<select name="courseSelect" id="courseSelect"
+					ng-options="c.courseName for c in coursesList.availableCourses" 
+					ng-model="user.course"></select>
+			</form><br><br>
+			<button ng-click="saveUserAsStudent(user)" class="btn btn-sm btn-info">Save</button><br>
+  		</div>
+  		<!--  fields for the professor / id=2 -->
+  		<div ng-show="user.selectedOption.id == 2">
+  			<label>Name: </label><input type="text" ng-model="user.name"/><br>
+			<label>Your age: </label><input type="number" ng-model="user.age" class="input-sm spacing"/> <br>
+			<label>Class: </label><input type="number" ng-model="user.classNumber" class="input-sm spacing"/> <br>
+			<label>Speciality: </label><input type="text" ng-model="user.speciality" class="input-sm spacing"/> <br><br>
+			<button ng-click="saveUserAsProfessor(user)" class="btn btn-sm btn-info">Save</button><br>
+  		</div>
+	</div>
 	</div>
 
 <br>
@@ -38,7 +63,6 @@
     <th>Name</th>
     <th>CPF</th>
     <th>ID</th>
-    <th>Skills</th>
     
  	 </tr>
 	  <tr ng-repeat="u in users">
@@ -48,12 +72,6 @@
 	  </tr>
 	</table>
 	<br>	
-	<table>
-	  <tr ng-repeat="x in skills">
-	    <td>{{ x.skillID }}</td>
-	    <td>{{ x.skillName }}</td>
-	  </tr>
-	</table>
 	<br>
 	
 	<div>

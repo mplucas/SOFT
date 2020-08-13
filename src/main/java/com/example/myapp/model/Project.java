@@ -1,4 +1,4 @@
-package com.example.myapp.feauture;
+package com.example.myapp.model;
 
 import java.sql.Timestamp;
 
