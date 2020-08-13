@@ -1,60 +1,64 @@
 <html >
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
 <script src="app.js"></script>
+<link rel="stylesheet" type="text/css" href="myappStyles/styles.css">
 
 <head>
 	<title>Main Page</title>
-	<style>
-	table {
-	  font-family: arial, sans-serif;
-	  border-collapse: collapse;
-	  width: 100%;
-	}
-	
-	td, th {
-	  border: 1px solid #dddddd;
-	  text-align: left;
-	  padding: 8px;
-	}
-	
-	tr:nth-child(even) {
-	  background-color: #dddddd;
-	}
-	</style>
 </head>
 
 <body ng-app="myApp" ng-controller="AppController" ng-init="init()">
 
 	<br><br>
-	<div>	
-		<form name="myForm">
-		    <label for="mySelect">User type: </label>
-		    <select name="mySelect" id="mySelect"
-		      ng-options="option.name for option in userType.availableOptions track by option.id"
-		      ng-model="user.selectedOption"></select>
-  		</form>	
-		
-  		<!--  fields for the student -->
-		<div ng-show="user.selectedOption.id == 1">
-			<label>Name: </label><input type="text" ng-model="user.name"/><br>
-			<label>Your age: </label><input type="number" ng-model="user.age" class="input-sm spacing"/> <br>
-			<form>
-				<label for="courseSelect">Course: </label>
-				<select name="courseSelect" id="courseSelect"
-					ng-options="c.courseName for c in coursesList.availableCourses" 
-					ng-model="user.course"></select>
-			</form><br><br>
-			<button ng-click="saveUserAsStudent(user)" class="btn btn-sm btn-info">Save</button><br>
-  		</div>
-  		<!--  fields for the professor / id=2 -->
-  		<div ng-show="user.selectedOption.id == 2">
-  			<label>Name: </label><input type="text" ng-model="user.name"/><br>
-			<label>Your age: </label><input type="number" ng-model="user.age" class="input-sm spacing"/> <br>
-			<label>Class: </label><input type="number" ng-model="user.classNumber" class="input-sm spacing"/> <br>
-			<label>Speciality: </label><input type="text" ng-model="user.speciality" class="input-sm spacing"/> <br><br>
-			<button ng-click="saveUserAsProfessor(user)" class="btn btn-sm btn-info">Save</button><br>
-  		</div>
-	</div>
+	<div class="container">
+		<div class="fixed round-borders margins-divs">
+			<div>
+				<h2 class="text-al"> Register User </h2>
+			</div>	
+			<form name="myForm">
+				<label for="mySelect">User type: </label>
+				<select name="mySelect" id="mySelect"
+				ng-options="option.name for option in userType.availableOptions track by option.id"
+				ng-model="user.selectedOption"></select>
+			</form>	
+			
+			<!--  fields for the student -->
+			<div ng-show="user.selectedOption.id == 1">
+				<label>Name: </label><input type="text" ng-model="user.name"/><br>
+				<label>Your age: </label><input type="number" ng-model="user.age" class="input-sm spacing"/> <br>
+				<form>
+					<label for="courseSelect">Course: </label>
+					<select name="courseSelect" id="courseSelect"
+						ng-options="c.courseName for c in coursesList.availableCourses" 
+						ng-model="user.course"></select>
+				</form><br><br>
+				<button ng-click="saveUserAsStudent(user)" class="btn btn-sm btn-info">Save</button><br>
+			</div>
+			<!--  fields for the professor / id=2 -->
+			<div ng-show="user.selectedOption.id == 2">
+				<label>Name: </label><input type="text" ng-model="user.name"/><br>
+				<label>Your age: </label><input type="number" ng-model="user.age" class="input-sm spacing"/> <br>
+				<label>Class: </label><input type="text" ng-model="user.classRoom" class="input-sm spacing"/> <br>
+				<label>Speciality: </label><input type="text" ng-model="user.speciality" class="input-sm spacing"/> <br><br>
+				<button ng-click="saveUserAsProfessor(user)" class="btn btn-sm btn-info">Save</button><br>
+			</div>
+		</div>
+
+		<div class="flex-item round-borders margins-divs">
+			<div>
+				<h2 class="text-al"> Register Department </h2>
+			</div>
+			<label>Department Name: </label><br>
+			<input type="text" ng-model="dep.departmentName" class="input-sm spacing"/><br>
+			<label>Central Office:</label><br>
+			<input type="text" ng-model="dep.centralOffice" class="input-sm spacing"/> <br>
+			
+		</div>
+		<div class="flex-item round-borders margins-divs">
+			<div>
+				<h2 class="text-al"> Register Project </h2>
+			</div>
+		</div>
 	</div>
 
 <br>
@@ -97,7 +101,8 @@
 	<div>
 		<button ng-click="list(user)">List</button>	
 		<!-- <span ng-repeat="skill in skills" class="list"<{{skill.skillName}}</span>-->
-	</div>		
+	</div>	
+	
 </body>
 
 </html>

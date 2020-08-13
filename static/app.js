@@ -28,7 +28,7 @@ module.controller('AppController', function($http, $scope, $window){
             name: null,
             age: null,
 			selectedOption: null,
-			classNumber: null,
+			classRoom: null,
 			speciality: null,
 			course: null
         };
@@ -63,7 +63,7 @@ module.controller('AppController', function($http, $scope, $window){
 			data: {
 				name: userDto.name,
 				age: userDto.age,
-				classNumber: userDto.classNumber,
+				classRoom: userDto.classRoom,
 				speciality: userDto.speciality,
 				
 			}
