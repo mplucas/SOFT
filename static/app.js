@@ -93,9 +93,12 @@ module.controller('AppController', function($http, $scope, $window){
 		});
 	};
 	
-	$scope.searchById = function(user){	
+	$scope.searchUser = function(user){	
 		$http.get('/user',{					
-			params: { id: user.id }
+			params: {
+				id: user.id,
+				name: user.name
+			}
 		}).then(function(response){
 			console.log("encontrado: ", response.data)
 			$scope.userFound = response.data

@@ -79,16 +79,21 @@
 	<br>
 	
 	<div>
-		<label>Search by ID:</label><input type="text" ng-model="user.id"/>
-		<button ng-click="searchById(user)" class="btn btn-sm btn-info">Search</button><br></br>
+		<label>Search by ID:</label> <input type="text" ng-model="user.id"  style="margin-right: 6px;"/>
+		<label>Search by name: </label> <input type="text" ng-model="user.name"/> <br><br>
+		<button ng-click="searchUser(user)" class="btn btn-sm btn-info">Search</button><br></br>
 		<h2>
 		<table id="userFound">
 		<tr>
-		    <th>Name</th>
-		    <th>CPF</th>		    		   
+		    <th>Registration</th>
+		    <th>Name</th>		    		   
+		    <th>Age</th>		    		   
+		    <th>Course</th>		    		   
  	 	</tr>
+		<td> {{ userFound.reg_number }} </td>
 		<td> {{ userFound.name }} </td>
-		<td> {{ userFound.cpf }} </td>
+		<td> {{ userFound.age }} </td>
+		<td> {{ userFound.course }} </td>
 		</table>
 	</div>
 	

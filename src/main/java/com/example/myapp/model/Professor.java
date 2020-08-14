@@ -5,14 +5,14 @@ public class Professor{
 	private String name;
 	private Integer age;
 	private String speciality;
-	private String classroom;
+	private String classRoom;
 
 
-	public Professor(String name, Integer age, String userType, String speciality, String classroom) {
+	public Professor(String name, Integer age, String userType, String speciality, String classRoom) {
 		this.name = name;
 		this.age = age;
 		this.speciality = speciality;
-		this.classroom = classroom;
+		this.classRoom = classRoom;
 	}
 	
 	public String getName() {
@@ -33,11 +33,11 @@ public class Professor{
 
 
 	public String getClassroom() {
-		return classroom;
+		return classRoom;
 	}
 
-	public void setClassroom(String classroom) {
-		this.classroom = classroom;
+	public void setClassRoom(String classRoom) {
+		this.classRoom = classRoom;
 	}
 
 	public String getSpeciality() {

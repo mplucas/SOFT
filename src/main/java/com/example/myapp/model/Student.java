@@ -2,18 +2,20 @@ package com.example.myapp.model;
 
 public class Student {
 
+	private Long reg_number;
+
 	private String name;
 	private Integer age;
 	private String course;
 	private Long departmentNumber;
 	private Long advisorNumber;
 
-	public Student(String name, Integer age, String course, String userType, Long departmentNumber, Long advisorNumber) {
+	public Student(String name, Integer age, String course, Long reg_number) {
 		this.name = name;
 		this.age = age;
 		this.course = course;
-		this.departmentNumber = departmentNumber;
-		this.advisorNumber = advisorNumber;
+		this.reg_number = reg_number;
+
 	}
 	
 	public String getName() {
@@ -61,5 +63,13 @@ public class Student {
 		return course;
 	}
 
+	public Long getReg_number() {
+		return reg_number;
+	}
+	
+	public void setReg_number(Long reg_number) {
+		this.reg_number = reg_number;
+	}
 
 }
+
