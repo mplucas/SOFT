@@ -1,43 +1,15 @@
-<html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.js"></script>
+<html >
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
 <script src="app.js"></script>
 <link rel="stylesheet" type="text/css" href="myappStyles/styles.css">
 
-<!-- SERVICES -->
-<script src="/services/studentService.js"></script>
-
-<!-- TEMPLATES -->
-<script src="/templates/student/student.js"></script>
-
-<!--  COMPONENTS -->
-<script src="components/truers-grid/truers-grid.js"></script>
-
 <head>
-	<title>UNIVERSITY OF TRUERS</title>
+	<title>Main Page</title>
 </head>
 
 <body ng-app="myApp" ng-controller="AppController" ng-init="init()">
 
-	<div style="display:flex; margin: 20px 10px 20px 10px">
-		<div layout="column">
-			<h1>Selecione o módulo</h1>
-			<div flex="100" layout="row" style="margin-top:5px">
-				<button ng-repeat="entity in entities" ng-click="selectEntity(entity)"
-					style="margin:5px; padding:5px">
-					{{entity}}
-				</button>
-			</div>
-			
-			<div flex="100" ng-include="selectedEntityPath"></div>
-		</div>
-	</div>
-	
-	<br />
-	<br />
-	<br />
-	<br />
-	MARSELO
-	
+	<br><br>
 	<div class="container">
 		<div class="fixed round-borders margins-divs">
 			<div>
@@ -89,7 +61,7 @@
 		</div>
 	</div>
 
-	<br>
+<br>
 	<table id="users">
 		<tr>
     <th>Name</th>
