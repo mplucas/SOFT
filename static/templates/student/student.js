@@ -18,21 +18,28 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 	};
 	
 	$scope.cols = [
-		{name: 'Nome', widthInPercentage: '30' },
-		{name: 'Idade', widthInPercentage: '10' },
-		{name: 'Curso', widthInPercentage: '20' },
-		{name: 'Departamento', widthInPercentage: '20' }
+		{name: 'reg_number', widthInPercentage: '30' },
+		{name: 'name', widthInPercentage: '30' },
+		{name: 'age', widthInPercentage: '10' },
+		{name: 'course', widthInPercentage: '20' },
+		{name: 'departmentNumber', widthInPercentage: '20' },
+		{name: 'advisorNumber', widthInPercentage: '20' }
 	];
 	
-	/*StudentService.list().then(function(response){
+	$scope.listStudents = function(){
+				
+		StudentService.list().then(function(response){
 		
-		$scope.students = response.data;				
-	});*/
+			$scope.students = response.data;
+		});
+	};
+	
+	$scope.listStudents();
 	
 	$scope.save = function(){
-		debugger;
+		
 		StudentService.save($scope.student).then(function(response){			
-			$scope.list();
+			$scope.listStudents();
 		},function(http, status){
 			console.log()
 			$window.alert("n deu boa" + status);

@@ -1,7 +1,7 @@
 'use strict'
 
 var TruersGridController = function(){
-
+	debugger;
 };
 
 module.component('truersGrid', {
