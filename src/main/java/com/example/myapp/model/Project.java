@@ -6,16 +6,26 @@ public class Project {
 
 	private Long projectNumber;
 	private String financier;
+	private float budget;
 	private Timestamp startDate;
 	private Timestamp endDate;
 	
 	
-	
-	public Project(Long projectNumber, String financier, Timestamp startDate, Timestamp endDate) {
+
+	public Project(Long projectNumber, String financier, Timestamp startDate, Timestamp endDate, float budget) {
 		this.projectNumber = projectNumber;
 		this.financier = financier;
+		this.budget = budget;
 		this.startDate = startDate;
 		this.endDate = endDate;
+	}
+	
+	public float getBudget() {
+		return budget;
+	}
+	
+	public void setBudget(float budget) {
+		this.budget = budget;
 	}
 
 	public Long getProjectNumber() {
