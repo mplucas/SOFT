@@ -1,21 +1,29 @@
 'use strict'
 
-module.controller('DepartmentController', function($http, $scope, $window, DepartmentService){
-	
+module.controller('DepartmentController', function($http, $scope, $window, DepartmentService, ProfessorService){
+	debugger;
 	$scope.departments = [{}];
 	$scope.department = {};
+	$scope.professors = [{}];
 	
 	$scope.cols = [
 		{name: 'dep_number', widthInPercentage: '30' },
 		{name: 'name', widthInPercentage: '30' },
-		{name: 'centralOffice', widthInPercentage: '10' }
+		{name: 'centralOffice', widthInPercentage: '10' },
+		{name: 'profLeaderRegAndName', widthInPercentage: '10' },
 	];
 	
 	$scope.listDepartments = function(){
-				
+		debugger;
 		DepartmentService.list().then(function(response){
 		
 			$scope.departments = response.data;
+			angular.forEach($scope.departments, function(department){
+				if(department.profLeader && department.profLeader.reg_number){
+					
+					department.profLeaderRegAndName = department.profLeader.reg_number.toString() + ' - ' + department.profLeader.name; 
+				}
+			});
 		});
 	};
 	
@@ -46,4 +54,10 @@ module.controller('DepartmentController', function($http, $scope, $window, Depar
 			$window.alert("n deu boa" + status);
 		});
 	};
+	
+	ProfessorService.list().then(function(response){
+		
+		$scope.professors = response.data;
+	});
+	
 });

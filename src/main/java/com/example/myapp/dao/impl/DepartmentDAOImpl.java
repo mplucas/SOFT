@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.example.myapp.dao.DepartmentDAO;
 import com.example.myapp.factory.DatabaseConnection;
 import com.example.myapp.model.Department;
+import com.example.myapp.model.Professor;
 
 public class DepartmentDAOImpl implements DepartmentDAO{
 
@@ -43,13 +44,15 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 		boolean isUpdate = exists(department);
 		
 		if(!isUpdate) {
-			sql = "INSERT INTO Departamento (Numero, Nome, EscritorioPrincipal)"
-					+ " VALUES(" + department.getDep_number() + ", '" + department.getName() + "', '" + department.getCentralOffice() + "')";
+			sql = "INSERT INTO Departamento (Numero, Nome, EscritorioPrincipal, MatLider)"
+					+ " VALUES(" + department.getDep_number() + ", '" + department.getName() + "', '"
+					+ department.getCentralOffice() + "', " + department.getProfLeader().getReg_number() + ")";
 		}
 		else {
 			sql = "UPDATE Departamento"
 					+ " SET Nome = '" + department.getName() + "'"
 					+ " , EscritorioPrincipal = '" + department.getCentralOffice() + "'"
+					+ " , MatLider = " + department.getProfLeader().getReg_number()
 					+ " WHERE Numero = " + department.getDep_number();
 		}
 		
@@ -81,20 +84,30 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 		
 	@Override
 	public ArrayList<Department> listAll(){
+		
 		String sql = "SELECT * FROM Departamento";
 		ArrayList<Department> departments = new ArrayList<Department>();
 		try(Connection connection = DatabaseConnection.getInstance().getConnection();
 				PreparedStatement pstm = connection.prepareStatement(sql)){
-				ResultSet rs = pstm.executeQuery();
+				
+			ResultSet rs = pstm.executeQuery();
 				
 				while(rs.next()) {
+					
 					Department department = new Department();
 					Long dep_number = rs.getLong("Numero");
 					String name = rs.getString("Nome");
 					String centralOffice = rs.getString("EscritorioPrincipal");
+					Long profLeaderRegNumber = rs.getLong("MatLider");
+					ProfessorDAOImpl professorDAOImpl = new ProfessorDAOImpl();
+					Professor profLeader = professorDAOImpl.listByRegNumber(profLeaderRegNumber);
+					
 					department.setDep_number(dep_number);
-					department.setName(name);
+					department.setName(name);	
 					department.setCentralOffice(centralOffice);
+					if(profLeader.getReg_number() != null) {
+						department.setProfLeader(profLeader);						
+					}
 					departments.add(department);
 				}
 				

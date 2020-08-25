@@ -60,10 +60,12 @@ public class ProfessorDAOImpl implements ProfessorDAO{
 
 	@Override
 	public ArrayList<Professor> listAll(){
+		
 		String sql = "SELECT * FROM Professor";
-		ArrayList<Professor> students = new ArrayList<>();
+		ArrayList<Professor> professors = new ArrayList<>();
 		try(Connection connection = DatabaseConnection.getInstance().getConnection();
 				PreparedStatement pstm = connection.prepareStatement(sql)){
+			
 				ResultSet rs = pstm.executeQuery();
 				
 				while(rs.next()) {
@@ -78,12 +80,40 @@ public class ProfessorDAOImpl implements ProfessorDAO{
 					prof.setAge(age);
 					prof.setClassRoom(classRoom);
 					prof.setSpeciality(speciality);
-					students.add(prof);
+					professors.add(prof);
 				}
 				
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return students;
+		return professors;
+	}
+	
+	public Professor listByRegNumber(Long reg_number){
+		
+		String sql = "SELECT * FROM Professor WHERE matricula = " + reg_number;
+		Professor prof = new Professor();
+		try(Connection connection = DatabaseConnection.getInstance().getConnection();
+				PreparedStatement pstm = connection.prepareStatement(sql)){
+			
+				ResultSet rs = pstm.executeQuery();
+				
+				if(rs.next()) {
+					
+					String name = rs.getString("Nome");
+					int age = rs.getInt("Idade");
+					String classRoom = rs.getString("Sala");
+					String speciality =  rs.getString("Especialidade");
+					prof.setReg_number(reg_number);
+					prof.setName(name);
+					prof.setAge(age);
+					prof.setClassRoom(classRoom);
+					prof.setSpeciality(speciality);
+				}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prof;
 	}
 }
