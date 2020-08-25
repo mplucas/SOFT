@@ -3,8 +3,11 @@
 	<label>Numero: </label><input type="number" ng-model="project.projectNumber"/><br>
 	<label>Financiador: </label><input type="text" ng-model="project.financier" class="input-sm spacing"/> <br>
 	<label>Orcamento: </label><input type="number" step="0.01" min="0" ng-model="project.budget" class="input-sm spacing"/> <br>
-	<label>Data Inicial: </label><input type="date" ng-model="project.startDate" class="input-sm spacing"/> <br>
+	<label>Data Inicial: </label><input type="date" dateformat="dd/MM/yyyy" ng-model="project.startDate" class="input-sm spacing"/> <br>
 	<label>Data Final: </label><input type="date" ng-model="project.endDate" class="input-sm spacing"/> <br>
+	<label>Professor Gerente: </label>
+	<select ng-model="project.profLeader"
+		ng-options="professor as professor.name for professor in professors track by professor.reg_number"></select>
 	<br><br>
 	<button ng-click="save()" class="btn btn-sm btn-info">Save</button><br>
 	

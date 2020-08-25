@@ -9,15 +9,25 @@ public class Project {
 	private float budget;
 	private Timestamp startDate;
 	private Timestamp endDate;
-	
+	private Professor profLeader;
 	
 
-	public Project(Long projectNumber, String financier, Timestamp startDate, Timestamp endDate, float budget) {
+
+	public Project(Long projectNumber, String financier, Timestamp startDate, Timestamp endDate, float budget, Professor profLeader) {
 		this.projectNumber = projectNumber;
 		this.financier = financier;
 		this.budget = budget;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.profLeader = profLeader;
+	}
+	
+	public Professor getProfLeader() {
+		return profLeader;
+	}
+	
+	public void setProfLeader(Professor profLeader) {
+		this.profLeader = profLeader;
 	}
 	
 	public float getBudget() {

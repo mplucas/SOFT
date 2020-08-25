@@ -9,10 +9,13 @@ import java.util.ArrayList;
 
 import com.example.myapp.dao.ProjectDAO;
 import com.example.myapp.factory.DatabaseConnection;
+import com.example.myapp.model.Professor;
 import com.example.myapp.model.Project;
 
 	public class ProjectDAOImpl implements ProjectDAO{
 
+		ProfessorDAOImpl professorDAOImpl = new ProfessorDAOImpl();
+		
 		public ProjectDAOImpl() {
 		}
 		
@@ -22,8 +25,8 @@ import com.example.myapp.model.Project;
 			String sql = "";
 			boolean isUpdate = exists(project);
 			if(!isUpdate) {
-				sql = "INSERT INTO Projeto(Numero, Financiador, DataInicio, DataFim, Orcamento) VALUES(" + project.getProjectNumber() + ", '" + 
-						project.getFinancier() + "', '" + project.getStartDate() + "', '" + project.getEndDate() + "', " + project.getBudget() + ")";
+				sql = "INSERT INTO Projeto(Numero, Financiador, DataInicio, DataFim, Orcamento, MatGerente) VALUES(" + project.getProjectNumber() + ", '" + 
+						project.getFinancier() + "', '" + project.getStartDate() + "', '" + project.getEndDate() + "', " + project.getBudget() + ", " + project.getProfLeader().getReg_number() + ")";
 			}
 			else {
 				sql = "UPDATE Projeto"
@@ -75,12 +78,14 @@ import com.example.myapp.model.Project;
 						Timestamp startDate = rs.getTimestamp("DataInicio");
 						Timestamp endDate = rs.getTimestamp("DataFim");
 						float budget = rs.getFloat("Orcamento");
+						Long profLeaderRegNumber = rs.getLong("MatGerente");
+						Professor profLeader = professorDAOImpl.listByRegNumber(profLeaderRegNumber);
 						project.setProjectNumber(projectNumber);
 						project.setFinancier(financier);
 						project.setBudget(budget);
 						project.setStartDate(startDate);
 						project.setEndDate(endDate);
-						
+						project.setProfLeader(profLeader);
 						projects.add(project);
 					}
 					
