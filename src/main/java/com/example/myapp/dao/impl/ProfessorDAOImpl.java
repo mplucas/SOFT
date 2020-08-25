@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.example.myapp.dao.ProfessorDAO;
 import com.example.myapp.factory.DatabaseConnection;
@@ -12,26 +13,38 @@ import com.example.myapp.model.Professor;
 public class ProfessorDAOImpl implements ProfessorDAO{
 
 	public ProfessorDAOImpl() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public void save(Professor professor) {
-		String sql = "INSERT INTO professor(name, age, classroom, speciality) VALUES('" + professor.getName() + "', " + 
-											professor.getAge() + ", '" + professor.getClassroom() + "', '" + professor.getSpeciality() + "')";
+		
+		String sql = "";
+		if(professor.getReg_number() == null) {
+			sql = "INSERT INTO professor(Nome, Idade, Sala, Especialidade) VALUES('" + professor.getName() + "', " + 
+					professor.getAge() + ", '" + professor.getClassRoom() + "', '" + professor.getSpeciality() + "')";
+		}
+		else {
+			sql = "UPDATE Estudante"
+					+ " SET Nome = '" + professor.getName() + "'"
+					+ " , Idade = " + professor.getAge()
+					+ " , Sala = '" + professor.getClassRoom() + "'"
+					+ " , Especialidade = '" + professor.getSpeciality() + "'"
+					+ " WHERE Matricula = " + professor.getReg_number();
+		}
 		
 		try(Connection connection = DatabaseConnection.getInstance().getConnection();
 			PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.executeQuery();
+			pstm.executeUpdate();
      	   
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override
 	public boolean delete(Long id) {
-		String sql = "DELETE FROM professor WHERE reg_number = " + id;
+		String sql = "DELETE FROM professor WHERE Matricula = " + id;
 
 		try(Connection connection = DatabaseConnection.getInstance().getConnection();
 		PreparedStatement pstm = connection.prepareStatement(sql)){
@@ -45,4 +58,32 @@ public class ProfessorDAOImpl implements ProfessorDAO{
 		return false;
 	}
 
+	@Override
+	public ArrayList<Professor> listAll(){
+		String sql = "SELECT * FROM Professor";
+		ArrayList<Professor> students = new ArrayList<>();
+		try(Connection connection = DatabaseConnection.getInstance().getConnection();
+				PreparedStatement pstm = connection.prepareStatement(sql)){
+				ResultSet rs = pstm.executeQuery();
+				
+				while(rs.next()) {
+					Professor prof = new Professor();
+					Long reg_number = rs.getLong("Matricula");
+					String name = rs.getString("Nome");
+					int age = rs.getInt("Idade");
+					String classRoom = rs.getString("Sala");
+					String speciality =  rs.getString("Especialidade");
+					prof.setReg_number(reg_number);
+					prof.setName(name);
+					prof.setAge(age);
+					prof.setClassRoom(classRoom);
+					prof.setSpeciality(speciality);
+					students.add(prof);
+				}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return students;
+	}
 }

@@ -1,0 +1,14 @@
+<div ng-controller="ProfessorController">
+	
+	<label>Nome: </label><input type="text" ng-model="professor.name"/><br>
+	<label>Idade: </label><input type="number" ng-model="professor.age" class="input-sm spacing"/> <br>
+	<label>Sala: </label><input type="text" ng-model="professor.classRoom" class="input-sm spacing"/> <br>
+	<label>Especialidade: </label><input type="text" ng-model="professor.speciality" class="input-sm spacing"/> <br>
+	<br><br>
+	<button ng-click="save()" class="btn btn-sm btn-info">Save</button><br>
+	
+	<div style="margin-top:5px">
+		<truers-grid items="profs" cols="cols" on-update="update" on-delete="delete"></truers-grid>
+	</div>
+	
+</div>
