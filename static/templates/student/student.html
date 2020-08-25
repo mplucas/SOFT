@@ -1,11 +1,17 @@
 <div ng-controller="StudentController">
 	
-	<label>Name: </label><input type="text" ng-model="student.name"/><br>
-	<label>Your age: </label><input type="number" ng-model="student.age" class="input-sm spacing"/> <br>
-	<label>Course: </label>
+	<label>Nome: </label><input type="text" ng-model="student.name"/><br>
+	<label>Idade: </label><input type="number" ng-model="student.age" class="input-sm spacing"/> <br>
+	<label>Curso: </label>
 	<select ng-model="student.course">
 		<option ng-repeat="course in courses" >{{course}}</option>
-	</select>
+	</select> <br>
+	<label>Aluno Aconselhador: </label>
+	<select ng-model="student.advisor"
+		ng-options="student as (student.reg_number + ' - ' + student.name) for student in students track by student.reg_number"></select> <br>
+	<label>Departamento: </label>
+	<select ng-model="student.department"
+		ng-options="department as (department.dep_number + ' - ' + department.name) for department in departments track by department.dep_number"></select>
 	<br><br>
 	<button ng-click="save()" class="btn btn-sm btn-info">Save</button><br>
 	

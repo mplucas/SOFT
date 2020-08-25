@@ -42,17 +42,22 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 		
 		String sql = "";
 		boolean isUpdate = exists(department);
+		Long matLider = null;
+		
+		if(department.getProfLeader() != null) {
+			matLider = department.getProfLeader().getReg_number();
+		}
 		
 		if(!isUpdate) {
 			sql = "INSERT INTO Departamento (Numero, Nome, EscritorioPrincipal, MatLider)"
 					+ " VALUES(" + department.getDep_number() + ", '" + department.getName() + "', '"
-					+ department.getCentralOffice() + "', " + department.getProfLeader().getReg_number() + ")";
+					+ department.getCentralOffice() + "', " + matLider + ")";
 		}
 		else {
 			sql = "UPDATE Departamento"
 					+ " SET Nome = '" + department.getName() + "'"
 					+ " , EscritorioPrincipal = '" + department.getCentralOffice() + "'"
-					+ " , MatLider = " + department.getProfLeader().getReg_number()
+					+ " , MatLider = " + matLider
 					+ " WHERE Numero = " + department.getDep_number();
 		}
 		
@@ -115,5 +120,36 @@ public class DepartmentDAOImpl implements DepartmentDAO{
 			e.printStackTrace();
 		}
 		return departments;
+	}
+	
+	public Department listByDepNumber(Long dep_number){
+		
+		String sql = "SELECT * FROM Departamento WHERE Numero = " + dep_number;
+		Department department = new Department();
+		try(Connection connection = DatabaseConnection.getInstance().getConnection();
+				PreparedStatement pstm = connection.prepareStatement(sql)){
+			
+				ResultSet rs = pstm.executeQuery();
+				
+				if(rs.next()) {
+					
+					String name = rs.getString("Nome");
+					String centralOffice = rs.getString("EscritorioPrincipal");
+					Long profLeaderRegNumber = rs.getLong("MatLider");
+					ProfessorDAOImpl professorDAOImpl = new ProfessorDAOImpl();
+					Professor profLeader = professorDAOImpl.listByRegNumber(profLeaderRegNumber);
+					
+					department.setDep_number(dep_number);
+					department.setName(name);	
+					department.setCentralOffice(centralOffice);
+					if(profLeader.getReg_number() != null) {
+						department.setProfLeader(profLeader);						
+					}
+				}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return department;
 	}
 }

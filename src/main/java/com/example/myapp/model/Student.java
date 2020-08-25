@@ -7,15 +7,17 @@ public class Student {
 	private String name;
 	private Integer age;
 	private String course;
-	private Long departmentNumber;
-	private Long advisorNumber;
+	private Department department;
+	private Student advisor;
 
+	public Student() {
+	}
+	
 	public Student(String name, Integer age, String course, Long reg_number) {
 		this.name = name;
 		this.age = age;
 		this.course = course;
 		this.reg_number = reg_number;
-
 	}
 	
 	public String getName() {
@@ -34,30 +36,9 @@ public class Student {
 		this.age = age;
 	}
 
-	public Student() {
-	}
-
-	
-	public Long getDepartmentNumber() {
-		return departmentNumber;
-	}
-
-	public void setDepartmentNumber(Long departmentNumber) {
-		this.departmentNumber = departmentNumber;
-	}
-
-	public Long getAdvisorNumber() {
-		return advisorNumber;
-	}
-
-	public void setAdvisorNumber(Long advisorNumber) {
-		this.advisorNumber = advisorNumber;
-	}
-
 	public void setCourse(String course) {
 		this.course = course;
 	}
-
 	
 	public String getCourse() {
 		return course;
@@ -70,6 +51,22 @@ public class Student {
 	public void setReg_number(Long reg_number) {
 		this.reg_number = reg_number;
 	}
+	
+	public Department getDepartment() {
+		return department;
+	}
 
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public Student getAdvisor() {
+		return advisor;
+	}
+
+	public void setAdvisor(Student advisor) {
+		this.advisor = advisor;
+	}
+	
 }
 

@@ -5,7 +5,7 @@
 	<label>Escritorio Principal: </label><input type="text" ng-model="department.centralOffice"/><br>
 	<label>Professor Lider: </label>
 	<select ng-model="department.profLeader"
-		ng-options="professor as professor.name for professor in professors track by professor.reg_number"></select>
+		ng-options="professor as (professor.reg_number + ' - ' + professor.name) for professor in professors track by professor.reg_number"></select>
 	<br><br>
 	<button ng-click="save()" class="btn btn-sm btn-info">Save</button><br>
 	
