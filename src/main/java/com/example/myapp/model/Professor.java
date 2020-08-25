@@ -2,6 +2,7 @@ package com.example.myapp.model;
 
 public class Professor{
 
+	private Long reg_number;
 	private String name;
 	private Integer age;
 	private String speciality;
@@ -15,6 +16,10 @@ public class Professor{
 		this.classRoom = classRoom;
 	}
 	
+	public Professor() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -31,11 +36,6 @@ public class Professor{
 		this.age = age;
 	}
 
-
-	public String getClassroom() {
-		return classRoom;
-	}
-
 	public void setClassRoom(String classRoom) {
 		this.classRoom = classRoom;
 	}
@@ -46,6 +46,18 @@ public class Professor{
 
 	public void setSpeciality(String speciality) {
 		this.speciality = speciality;
+	}
+	
+	public Long getReg_number() {
+		return reg_number;
+	}
+
+	public void setReg_number(Long reg_number) {
+		this.reg_number = reg_number;
+	}
+
+	public String getClassRoom() {
+		return classRoom;
 	}
 
 
