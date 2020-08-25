@@ -1,8 +1,12 @@
 <table>
 	<tr>
-	    <th ng-repeat="col in $ctrl.cols" style="width:{{col.widthInPercentage}}%">{{col.name}}</th>
+		<th ng-repeat="col in $ctrl.cols"
+			style="width: {{col.widthInPercentage">{{col.name}}</th>
 	</tr>
 	<tr ng-repeat="item in $ctrl.items">
-		<td ng-repeat="col in $ctrl.cols" style="width:{{col.widthInPercentage}}%">{{ item[col.name] }}</td>	
+		<td ng-repeat="col in $ctrl.cols"
+			style="width: {{col.widthInPercentage">{{ item[col.name] }}</td>
+		<td><button ng-click="$ctrl.onUpdate(item)">Update</button></td>
+		<td><button ng-click="$ctrl.onDelete(item)">Delete</button></td>
 	</tr>
 </table>

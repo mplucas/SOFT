@@ -18,12 +18,23 @@ public class StudentDAOImpl implements StudentDAO{
 	
 	@Override
 	public void save(Student student) {
-		String sql = "INSERT INTO Estudante (Nome, Idade, TipoCurso) VALUES('" + student.getName() + "', " + 
-											student.getAge() + ", '" + student.getCourse() + "')";
+		
+		String sql = "";
+		if(student.getReg_number() == null) {
+			sql = "INSERT INTO Estudante (Nome, Idade, TipoCurso) VALUES('" + student.getName() + "', " + 
+					student.getAge() + ", '" + student.getCourse() + "')";
+		}
+		else {
+			sql = "UPDATE Estudante"
+					+ " SET Nome = '" + student.getName() + "'"
+					+ " , Idade = " + student.getAge()
+					+ " , TipoCurso = '" + student.getCourse() + "'"
+					+ " WHERE Matricula = " + student.getReg_number();
+		}
 		
 		try(Connection connection = DatabaseConnection.getInstance().getConnection();
 			PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.executeQuery();
+			pstm.executeUpdate();
      	   
 		} catch (SQLException e) {
 			e.printStackTrace();

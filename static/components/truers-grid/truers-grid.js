@@ -1,13 +1,15 @@
 'use strict'
 
-var TruersGridController = function(){
-	debugger;
+function TruersGridController() {
+	
 };
 
 module.component('truersGrid', {
   bindings: {
     items: '=',
-	cols: '='
+	cols: '=',
+	onUpdate: '<',
+	onDelete: '<',
   },
   templateUrl: '/components/truers-grid/truers-grid.html',
   controller: TruersGridController

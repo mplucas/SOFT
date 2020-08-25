@@ -4,14 +4,14 @@
 	<label>Your age: </label><input type="number" ng-model="student.age" class="input-sm spacing"/> <br>
 	<form>
 		<label for="courseSelect">Course: </label>
-		<select name="courseSelect" id="courseSelect"
-			ng-options="c.courseName for c in coursesList.availableCourses" 
-			ng-model="student.course"></select>
+		<select name="courseSelect" id="courseSelect" ng-model="student.course">
+			<option ng-repeat="course in courses" >{{course}}</option>
+		</select>
 	</form><br><br>
 	<button ng-click="save()" class="btn btn-sm btn-info">Save</button><br>
 	
 	<div style="margin-top:5px">
-		<truers-grid items="students" cols="cols"></truers-grid>
+		<truers-grid items="students" cols="cols" on-update="update" on-delete="delete"></truers-grid>
 	</div>
 	
 </div>

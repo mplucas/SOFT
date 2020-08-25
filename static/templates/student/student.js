@@ -5,17 +5,14 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 	$scope.students = [{}];
 	$scope.student = {};
 	
-	$scope.coursesList = {
-		availableCourses: [
-			{courseName: 'Computer Science'},
-			{courseName: 'Physics Bachelor'},
-			{courseName: 'Chemistry Bachelor'},
-			{courseName: 'Mechanical Engineering'},
-			{courseName: 'Production Engineering'},
-			{courseName: 'Civil Engineering'}
-		],
-		course: {courseName: 'Computer Science'}
-	};
+	$scope.courses = [
+			'Computer Science',
+			'Physics Bachelor',
+			'Chemistry Bachelor',
+			'Mechanical Engineering',
+			'Production Engineering',
+			'Civil Engineering'
+	];
 	
 	$scope.cols = [
 		{name: 'reg_number', widthInPercentage: '30' },
@@ -39,6 +36,22 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 	$scope.save = function(){
 		
 		StudentService.save($scope.student).then(function(response){			
+			$scope.listStudents();
+			$scope.student = {};
+		},function(http, status){
+			console.log()
+			$window.alert("n deu boa" + status);
+		});
+	};
+	
+	$scope.update = function(student){
+		
+		$scope.student = angular.copy(student);
+	};
+	
+	$scope.delete = function(student){
+		
+		StudentService.delete(student.reg_number).then(function(response){			
 			$scope.listStudents();
 		},function(http, status){
 			console.log()
