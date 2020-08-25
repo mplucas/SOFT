@@ -8,7 +8,8 @@
 	</tr>
 	<tr ng-repeat="item in $ctrl.items">
 		<td ng-repeat="col in $ctrl.cols"
-			style="width: {{col.widthInPercentage">{{ item[col.name] }}</td>
+			style="width: {{col.widthInPercentage}}">{{ !col.isDate ? item[col.name] : (item[col.name] | date:'dd/MM/yyyy')}}</td>
+			
 		<td><button ng-click="$ctrl.onUpdate(item)">Update</button></td>
 		<td><button ng-click="$ctrl.onDelete(item)">Delete</button></td>
 	</tr>
