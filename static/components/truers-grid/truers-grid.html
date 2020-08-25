@@ -1,7 +1,10 @@
 <table>
 	<tr>
 		<th ng-repeat="col in $ctrl.cols"
-			style="width: {{col.widthInPercentage">{{col.name}}</th>
+			style="width: {{col.widthInPercentage">{{col.name}}
+		</th>
+		<th>Update</th>
+		<th>Delete</th>
 	</tr>
 	<tr ng-repeat="item in $ctrl.items">
 		<td ng-repeat="col in $ctrl.cols"

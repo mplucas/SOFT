@@ -3,14 +3,17 @@ package com.example.myapp.model;
 public class Department {
 
 	private Long dep_number;
-	private String departmentName;
+	private String name;
 	private String centralOffice;
 	private Professor profLeader;
 	
-
-	public Department(Long dep_number, String departmentName, String centralOffice) {
+	public Department() {
+		
+	}
+	
+	public Department(Long dep_number, String name, String centralOffice) {
 		this.dep_number = dep_number;
-		this.departmentName = departmentName;
+		this.name = name;
 		this.centralOffice = centralOffice;
 	}
 	
@@ -20,11 +23,11 @@ public class Department {
 	public void setDep_number(Long dep_number) {
 		this.dep_number = dep_number;
 	}
-	public String getDepartmentName() {
-		return departmentName;
+	public String getName() {
+		return name;
 	}
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
+	public void setName(String departmentName) {
+		this.name = departmentName;
 	}
 	public String getCentralOffice() {
 		return centralOffice;
