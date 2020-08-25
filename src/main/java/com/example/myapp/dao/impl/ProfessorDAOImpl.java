@@ -24,7 +24,7 @@ public class ProfessorDAOImpl implements ProfessorDAO{
 					professor.getAge() + ", '" + professor.getClassRoom() + "', '" + professor.getSpeciality() + "')";
 		}
 		else {
-			sql = "UPDATE Estudante"
+			sql = "UPDATE professor"
 					+ " SET Nome = '" + professor.getName() + "'"
 					+ " , Idade = " + professor.getAge()
 					+ " , Sala = '" + professor.getClassRoom() + "'"

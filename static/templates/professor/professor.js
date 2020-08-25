@@ -16,7 +16,7 @@ module.controller('ProfessorController', function($http, $scope, $window, Profes
 	
 	$scope.listProfs = function(){
 				
-		StudentService.list().then(function(response){
+		ProfessorService.list().then(function(response){
 		
 			$scope.profs = response.data;
 		});
@@ -26,7 +26,7 @@ module.controller('ProfessorController', function($http, $scope, $window, Profes
 	
 	$scope.save = function(){
 		
-		StudentService.save($scope.professor).then(function(response){			
+		ProfessorService.save($scope.professor).then(function(response){			
 			$scope.listProfs();
 			$scope.professor = {};
 		},function(http, status){
@@ -42,7 +42,7 @@ module.controller('ProfessorController', function($http, $scope, $window, Profes
 	
 	$scope.delete = function(professor){
 		
-		StudentService.delete(professor.reg_number).then(function(response){			
+		ProfessorService.delete(professor.reg_number).then(function(response){			
 			$scope.listProfs();
 		},function(http, status){
 			console.log()
