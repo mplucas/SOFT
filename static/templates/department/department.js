@@ -1,7 +1,7 @@
 'use strict'
 
 module.controller('DepartmentController', function($http, $scope, $window, DepartmentService, ProfessorService){
-	debugger;
+
 	$scope.departments = [{}];
 	$scope.department = {};
 	$scope.professors = [{}];
@@ -14,7 +14,7 @@ module.controller('DepartmentController', function($http, $scope, $window, Depar
 	];
 	
 	$scope.listDepartments = function(){
-		debugger;
+
 		DepartmentService.list().then(function(response){
 		
 			$scope.departments = response.data;
@@ -47,7 +47,7 @@ module.controller('DepartmentController', function($http, $scope, $window, Depar
 	
 	$scope.delete = function(department){
 		
-		DepartmentService.delete(department.reg_number).then(function(response){			
+		DepartmentService.delete(department.dep_number).then(function(response){			
 			$scope.listDepartments();
 		},function(http, status){
 			console.log()
