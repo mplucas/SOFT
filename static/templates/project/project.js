@@ -1,10 +1,9 @@
 'use strict'
 
-module.controller('ProjectController', function($filter, $http, $scope, $window, ProjectService, ProfessorService){
+module.controller('ProjectController', function($filter, $http, $scope, $window, ProjectService, ProfessorService, ParticipatesService){
 	
 	$scope.projects = [{}];
 	$scope.project = {};
-	$scope.professors = [{}];
 
 	$scope.cols = [
 		{name: 'projectNumber', widthInPercentage: '30' },
@@ -19,14 +18,14 @@ module.controller('ProjectController', function($filter, $http, $scope, $window,
 				
 		ProjectService.list().then(function(response){
 		
-			$scope.projects = response.data;
-			angular.forEach($scope.projects, function(project){
-				project.startDate = $filter('date')(project.startDate, "dd/MM/yyyy");				
-				project.endDate = $filter('date')(project.endDate, "dd/MM/yyyy");				
+			angular.forEach(response.data, function(project){
+				project.startDate = new Date(project.startDate);				
+				project.endDate = new Date(project.endDate);				
 				if(project.profLeader && project.profLeader.reg_number){
 					project.profLeaderRegAndName = project.profLeader.reg_number.toString() + ' - ' + project.profLeader.name; 
 				}
 			});
+			$scope.projects = response.data;
 		});
 	};
 	
@@ -46,6 +45,8 @@ module.controller('ProjectController', function($filter, $http, $scope, $window,
 	$scope.update = function(project){
 		
 		$scope.project = angular.copy(project);
+		resetParticipates();
+		$scope.listParticipates();
 	};
 	
 	$scope.delete = function(project){
@@ -57,8 +58,57 @@ module.controller('ProjectController', function($filter, $http, $scope, $window,
 		});
 	};
 	
+	// professors
+	$scope.professors = [{}];
 	ProfessorService.list().then(function(response){
 		
 		$scope.professors = response.data;
 	});
+	
+	// participates
+	$scope.participatess = [];
+	$scope.participates = {};
+	
+	$scope.participatesCols = [
+		{name: 'professorRegAndName', widthInPercentage: '20' },
+	];
+	
+	var resetParticipates = function(){
+		$scope.participates = { project: $scope.project };
+	};
+	
+	$scope.listParticipates = function(){
+
+		ParticipatesService.listByProjectNumber($scope.participates.project.projectNumber).then(function(response){
+		
+			$scope.participatess = response.data;
+			angular.forEach($scope.participatess, function(participates){
+				if(participates.professor && participates.professor.reg_number){
+					
+					participates.professorRegAndName = participates.professor.reg_number.toString() + ' - ' + participates.professor.name; 
+				}
+			});
+		});
+	};
+		
+	$scope.saveParticipates = function(){
+		
+		ParticipatesService.save($scope.participates).then(function(response){			
+			$scope.listParticipates();
+			resetParticipates();
+		},function(http, status){
+			console.log()
+			$window.alert("n deu boa" + status);
+		});
+	};
+	
+	$scope.deleteParticipates = function(participates){
+		
+		ParticipatesService.delete(participates.project.projectNumber, participates.professor.reg_number).then(function(response){			
+			$scope.listParticipates();
+		},function(http, status){
+			console.log()
+			$window.alert("n deu boa" + status);
+		});
+	};
 });

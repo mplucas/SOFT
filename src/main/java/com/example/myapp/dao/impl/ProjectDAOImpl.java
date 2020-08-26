@@ -95,6 +95,37 @@ import com.example.myapp.model.Project;
 			return projects;
 		}
 		
+		public Project listByProjectNumber(Long projectNumber){
+			
+			String sql = "SELECT * FROM Projeto WHERE Numero = " + projectNumber;
+			Project project = new Project();
+			try(Connection connection = DatabaseConnection.getInstance().getConnection();
+					PreparedStatement pstm = connection.prepareStatement(sql)){
+				
+					ResultSet rs = pstm.executeQuery();
+					
+					if(rs.next()) {
+						
+						String financier = rs.getString("Financiador");
+						Timestamp startDate = rs.getTimestamp("DataInicio");
+						Timestamp endDate = rs.getTimestamp("DataFim");
+						float budget = rs.getFloat("Orcamento");
+						Long profLeaderRegNumber = rs.getLong("MatGerente");
+						Professor profLeader = professorDAOImpl.listByRegNumber(profLeaderRegNumber);
+						project.setProjectNumber(projectNumber);
+						project.setFinancier(financier);
+						project.setBudget(budget);
+						project.setStartDate(startDate);
+						project.setEndDate(endDate);
+						project.setProfLeader(profLeader);
+					}
+					
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return project;
+		}
+		
 		private boolean exists(Project project) {
 			
 			String sql = "SELECT * FROM Projeto WHERE Numero = " + project.getProjectNumber();

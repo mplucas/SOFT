@@ -11,4 +11,6 @@ public interface ProjectDAO {
 	public boolean delete(Long id);
 
 	public ArrayList<Project> listAll();
+	
+	public Project listByProjectNumber(Long projectNumber);
 }

@@ -78,8 +78,8 @@ module.controller('ProfessorController', function($http, $scope, $window, Profes
 	};
 	
 	$scope.listWorks = function(){
-		debugger;
-		WorksService.listByProfessorRegNumber($scope.professor.reg_number).then(function(response){
+
+		WorksService.listByProfessorRegNumber($scope.works.professor.reg_number).then(function(response){
 		
 			$scope.workss = response.data;
 			angular.forEach($scope.workss, function(works){
