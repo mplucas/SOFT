@@ -17,8 +17,8 @@ tr:nth-child(even) {
 }
 
 .container{
-display: flex;
-width: 50%;
+	display: flex;
+	width: 50%;
 }
 .fixed{
     width: 200px;

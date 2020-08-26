@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import com.example.myapp.dao.StudentDAO;
 import com.example.myapp.factory.DatabaseConnection;
 import com.example.myapp.model.Department;
-import com.example.myapp.model.Professor;
 import com.example.myapp.model.Student;
 
 public class StudentDAOImpl implements StudentDAO{
