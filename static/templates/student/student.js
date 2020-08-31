@@ -1,10 +1,12 @@
 'use strict'
 
-module.controller('StudentController', function($http, $scope, $window, StudentService, DepartmentService){
+module.controller('StudentController', function($http, $scope, $window, StudentService, DepartmentService, ProjectService, AssistentService){
 	
 	$scope.students = [{}];
 	$scope.student = {};
-	$scope.departments = [{}];
+	$scope.projects = [{}];
+	$scope.assist = {};
+	$scope.assistents = [];
 	
 	$scope.courses = [
 			'Computer Science',
@@ -45,8 +47,7 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 	$scope.listStudents();
 	
 	$scope.save = function(){
-		
-		StudentService.save($scope.student).then(function(response){			
+		StudentService.save($scope.student).then(function(response){
 			$scope.listStudents();
 			$scope.student = {};
 		},function(http, status){
@@ -58,6 +59,8 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 	$scope.update = function(student){
 		
 		$scope.student = angular.copy(student);
+		resetAssist();
+		$scope.listAssist();
 	};
 	
 	$scope.delete = function(student){
@@ -74,4 +77,48 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 		
 		$scope.departments = response.data;
 	});
+	
+	ProjectService.list().then(function(response){
+		$scope.projects = response.data;
+	})
+	
+	$scope.assistCols = [ {name: 'project_number', widthInPercentage: '20'} ];
+		
+	var resetAssist = function(){
+		$scope.assistent = { student: $scope.student,
+								project: $scope.project };
+	};
+	
+	$scope.listAssist = function(){
+		
+		AssistentService.listByStudentRegNumber($scope.assistent.student.reg_number).then(function(response){
+			
+			$scope.assistents = response.data;
+			angular.forEach($scope.assistents, function(assistent){
+				if(assistent.project && assistent.project.projectNumber){
+					assistent.project_number = assistent.project.projectNumber.toString();
+				}
+			});
+		});
+	};
+	
+	$scope.saveAssistent = function(){
+		$scope.assistent.project = $scope.assist.project;
+		AssistentService.save($scope.assistent).then(function(response){
+			$scope.listAssist();
+			resetAssist();			
+		}, function(http, status){
+			$window.alert("nao deu boa " + status);
+		});	
+	};
+	
+	$scope.deleteAssist = function(works){
+		AssistentService.delete($scope.assistent.student.reg_number).then(function(response){
+			$scope.listAssist();
+		},function(http, status){
+			$window.alert("nao deu boa " + status);
+		});
+	};
+	
+	
 });
