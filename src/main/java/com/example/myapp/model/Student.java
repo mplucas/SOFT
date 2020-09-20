@@ -1,72 +1,78 @@
 package com.example.myapp.model;
 
+import java.sql.Timestamp;
+
 public class Student {
 
-	private Long reg_number;
-
+	private String document;
 	private String name;
-	private Integer age;
-	private String course;
-	private Department department;
-	private Student advisor;
-
-	public Student() {
-	}
+	private String fatherName;
+	private String motherName;
+	private String fatherPhone;
+	private String motherPhone;
+	private String parentsEmail;
+	private Timestamp birth;
 	
-	public Student(String name, Integer age, String course, Long reg_number) {
+	public Student(String document, String name, String fatherName, String motherName, String fatherPhone,
+			String motherPhone, String parentsEmail, Timestamp birth) {
+		super();
+		this.document = document;
 		this.name = name;
-		this.age = age;
-		this.course = course;
-		this.reg_number = reg_number;
+		this.fatherName = fatherName;
+		this.motherName = motherName;
+		this.fatherPhone = fatherPhone;
+		this.motherPhone = motherPhone;
+		this.parentsEmail = parentsEmail;
+		this.birth = birth;
 	}
 	
+	public String getDocument() {
+		return document;
+	}
+	public void setDocument(String document) {
+		this.document = document;
+	}
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Integer getAge() {
-		return age;
+	public String getFatherName() {
+		return fatherName;
 	}
-
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setFatherName(String fatherName) {
+		this.fatherName = fatherName;
 	}
-
-	public void setCourse(String course) {
-		this.course = course;
+	public String getMotherName() {
+		return motherName;
 	}
-	
-	public String getCourse() {
-		return course;
+	public void setMotherName(String motherName) {
+		this.motherName = motherName;
 	}
-
-	public Long getReg_number() {
-		return reg_number;
+	public String getFatherPhone() {
+		return fatherPhone;
 	}
-	
-	public void setReg_number(Long reg_number) {
-		this.reg_number = reg_number;
+	public void setFatherPhone(String fatherPhone) {
+		this.fatherPhone = fatherPhone;
 	}
-	
-	public Department getDepartment() {
-		return department;
+	public String getMotherPhone() {
+		return motherPhone;
 	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setMotherPhone(String motherPhone) {
+		this.motherPhone = motherPhone;
 	}
-
-	public Student getAdvisor() {
-		return advisor;
+	public String getParentsEmail() {
+		return parentsEmail;
 	}
-
-	public void setAdvisor(Student advisor) {
-		this.advisor = advisor;
+	public void setParentsEmail(String parentsEmail) {
+		this.parentsEmail = parentsEmail;
 	}
-	
+	public Timestamp getBirth() {
+		return birth;
+	}
+	public void setBirth(Timestamp birth) {
+		this.birth = birth;
+	}
 }
 

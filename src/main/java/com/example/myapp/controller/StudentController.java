@@ -31,14 +31,14 @@ public class StudentController {
 	}
 	
 	@DeleteMapping(path="/delete")
-	public boolean delete(@RequestParam Long id) {
+	public boolean delete(@RequestParam String document) {
 	
-		studentDAO.delete(id);
+		studentDAO.delete(document);
 		return false;
 	}
 	
 	@GetMapping(path="/list")
-	public ArrayList<Student> searchById(){
+	public ArrayList<Student> listAll(){
 		return studentDAO.listAll();
 	}
 }

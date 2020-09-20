@@ -4,144 +4,87 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.example.myapp.dao.StudentDAO;
-import com.example.myapp.factory.DatabaseConnection;
-import com.example.myapp.model.Department;
 import com.example.myapp.model.Student;
 
 public class StudentDAOImpl implements StudentDAO{
-
+	
+	ArrayList<Student> students;
+	
+	private void CreateBaseStudents() throws Exception {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		students = new ArrayList<Student>();
+		
+		students.add(new Student("07715819980", "Lucas Pereira", "Jairo Pereira", "Marlene Pereira",
+				"99845000", "96241314", "marlene@gmail.com", new Timestamp(dateFormat.parse("10/02/2013").getTime())));
+		
+		students.add(new Student("99999999999", "André Francisco", "Pai do André", "Mão do André",
+				"999999999", "999999999", "paisdoandre@gmail.com", new Timestamp(dateFormat.parse("15/07/2013").getTime())));
+	}
+	
+	private Iterator<Student> FindStudent(String document) {
+		
+		Iterator<Student> itr = students.iterator();
+		
+        while (itr.hasNext()) 
+        { 
+            Student student = (Student)itr.next(); 
+            if (student.getDocument().equals(document) ) {
+            	return itr;
+            }
+        }
+        
+        return null;
+	}
+	
 	public StudentDAOImpl() {
-		// TODO Auto-generated constructor stub
+		
+		if(students == null) {
+			try {
+				CreateBaseStudents();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	@Override
 	public void save(Student student) {
 		
-		String sql = "";
-		Long matAconselhador = null;
-		Long numDepartamento = null;
+		Iterator<Student> itr = FindStudent(student.getDocument());
 		
-		if(student.getAdvisor() != null) {
-			matAconselhador = student.getAdvisor().getReg_number();
+		if(itr != null) {
+			itr.set(student);
+		}
+		else {			
+			students.add(student);
 		}
 		
-		if(student.getDepartment() != null) {
-			numDepartamento = student.getDepartment().getDep_number();
-		}
-		
-		
-		if(student.getReg_number() == null) {
-			sql = "INSERT INTO Estudante (Nome, Idade, TipoCurso, MatAconselhador, NumDepartamento)"
-					+ " VALUES('" + student.getName() + "', " + student.getAge() + ", '" + student.getCourse() + "'"
-							+ ", " + matAconselhador + ", " + numDepartamento + ")";
-		}
-		else {
-			sql = "UPDATE Estudante"
-					+ " SET Nome = '" + student.getName() + "'"
-					+ " , Idade = " + student.getAge()
-					+ " , TipoCurso = '" + student.getCourse() + "'"
-					+ " , MatAconselhador = " + matAconselhador
-					+ " , NumDepartamento = " + numDepartamento
-					+ " WHERE Matricula = " + student.getReg_number();
-		}
-		
-		try(Connection connection = DatabaseConnection.getInstance().getConnection();
-			PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.executeUpdate();
-     	   
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@Override
-	public boolean delete(Long id) {
-		String sql = "DELETE FROM Estudante WHERE Matricula = " + id;
-
-		try(Connection connection = DatabaseConnection.getInstance().getConnection();
-		PreparedStatement pstm = connection.prepareStatement(sql)){
-		ResultSet rs =	pstm.executeQuery();
+	public boolean delete(String document) {
 		
-		return rs.rowDeleted();
+		Iterator<Student> itr = FindStudent(document);
 		
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(itr != null) {
+			itr.remove();
 		}
-		
-		return true;
+        
+        return itr != null;
 	}
 		
 	@Override
 	public ArrayList<Student> listAll(){
-		String sql = "SELECT * FROM Estudante";
-		ArrayList<Student> students = new ArrayList<Student>();
-		try(Connection connection = DatabaseConnection.getInstance().getConnection();
-				PreparedStatement pstm = connection.prepareStatement(sql)){
-				ResultSet rs = pstm.executeQuery();
-				
-				while(rs.next()) {
-					Student student = new Student();
-					Long reg_number = rs.getLong("Matricula");
-					String name = rs.getString("Nome");
-					int age = rs.getInt("Idade");
-					Long matAconselhador = rs.getLong("MatAconselhador");
-					Long numDepartamento = rs.getLong("NumDepartamento");
-					Student advisor = listByRegNumber(matAconselhador);
-					DepartmentDAOImpl departmentDAOImpl = new DepartmentDAOImpl();
-					Department department = departmentDAOImpl.listByDepNumber(numDepartamento);
-					
-					String course = rs.getString("TipoCurso");
-					student.setReg_number(reg_number);
-					student.setName(name);
-					student.setAge(age);
-					student.setCourse(course);
-					if(advisor.getReg_number() != null) {
-						student.setAdvisor(advisor);						
-					}
-					if(department.getDep_number() != null) {
-						student.setDepartment(department);
-					}
-					students.add(student);
-				}
-				
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return students;
-	}
-	
-	public Student listByRegNumber(Long reg_number){
 		
-		String sql = "SELECT * FROM Estudante WHERE matricula = " + reg_number;
-		Student student = new Student();
-		try(Connection connection = DatabaseConnection.getInstance().getConnection();
-				PreparedStatement pstm = connection.prepareStatement(sql)){
-			
-				ResultSet rs = pstm.executeQuery();
-				
-				if(rs.next()) {
-					
-					String name = rs.getString("Nome");
-					int age = rs.getInt("Idade");
-					Long numDepartamento = rs.getLong("NumDepartamento");
-					DepartmentDAOImpl departmentDAOImpl = new DepartmentDAOImpl();
-					Department department = departmentDAOImpl.listByDepNumber(numDepartamento);
-					String course = rs.getString("TipoCurso");
-					student.setReg_number(reg_number);
-					student.setName(name);
-					student.setAge(age);
-					student.setCourse(course);
-					if(department.getDep_number() != null) {
-						student.setDepartment(department);
-					}
-				}
-				
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return student;
+		return students;
 	}
 }
