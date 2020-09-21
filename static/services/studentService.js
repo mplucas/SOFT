@@ -15,13 +15,13 @@ module.service('StudentService', function($http) {
 		return $http.get('/student/list', {});
 	};
 	
-	this.delete = function(id){
+	this.delete = function(document){
 		
 		return $http({
 			method: 'DELETE',
 			url: "http://localhost:8080/student/delete",
 			params:{
-				id: id
+				document: document
 			}
 		});
 	};

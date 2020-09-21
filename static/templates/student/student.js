@@ -13,13 +13,16 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 		{name: 'fatherPhone', widthInPercentage: '20' },
 		{name: 'motherPhone', widthInPercentage: '20' },
 		{name: 'parentsEmail', widthInPercentage: '20' },
-		{name: 'birth', widthInPercentage: '20' }
+		{name: 'birth', widthInPercentage: '20', isDate: true }
 	];
 	
 	$scope.listStudents = function(){
 				
 		StudentService.list().then(function(response){
-		
+			
+			angular.forEach(response.data, function(student){
+				student.birth = new Date(student.birth);				
+			});
 			$scope.students = response.data;
 		});
 	};

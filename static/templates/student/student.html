@@ -1,17 +1,15 @@
 <div ng-controller="StudentController">
 	
-	<label>Nome: </label><input type="text" ng-model="student.name"/><br>
-	<label>Idade: </label><input type="number" ng-model="student.age" class="input-sm spacing"/> <br>
-	<label>Curso: </label>
-	<select ng-model="student.course">
-		<option ng-repeat="course in courses" >{{course}}</option>
-	</select> <br>
-	<label>Aluno Aconselhador: </label>
-	<select ng-model="student.advisor"
-		ng-options="student as (student.reg_number + ' - ' + student.name) for student in students track by student.reg_number"></select> <br>
-	<label>Departamento: </label>
-	<select ng-model="student.department"
-		ng-options="department as (department.dep_number + ' - ' + department.name) for department in departments track by department.dep_number"></select>
+	<label>Nome do Aluno: </label><input type="text" ng-model="student.name"/><br>
+	<label>Nome do Pai: </label><input type="text" ng-model="student.fatherName"/><br>
+	<label>Nome da Mae: </label><input type="text" ng-model="student.motherName"/><br>
+	<div flex="80" layou="row">
+		<div flex="50"><label>Telefone do Pai: </label><input type="text" ng-model="student.fatherPhone"/></div>
+		<div flex="50"><label>Telefone da Mae: </label><input type="text" ng-model="student.motherPhone"/></div>
+	</div>
+	<label>E-mail dos pais: </label><input type="text" ng-model="student.parentsEmail"/><br>
+	<label>Documento do aluno: </label><input type="text" ng-model="student.document"/><br>
+	<label>Data de Nascimento: </label><input type="date" ng-model="student.birth" class="input-sm spacing"/> <br>
 	<br><br>
 	<button ng-click="save()" class="btn btn-sm btn-info">Save</button><br>
 	

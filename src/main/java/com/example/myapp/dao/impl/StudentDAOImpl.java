@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.ListIterator;
 
 import com.example.myapp.dao.StudentDAO;
 import com.example.myapp.model.Student;
@@ -29,9 +29,9 @@ public class StudentDAOImpl implements StudentDAO{
 				"999999999", "999999999", "paisdoandre@gmail.com", new Timestamp(dateFormat.parse("15/07/2013").getTime())));
 	}
 	
-	private Iterator<Student> FindStudent(String document) {
+	private ListIterator<Student> FindStudent(String document) {
 		
-		Iterator<Student> itr = students.iterator();
+		ListIterator<Student> itr = students.listIterator();
 		
         while (itr.hasNext()) 
         { 
@@ -59,7 +59,7 @@ public class StudentDAOImpl implements StudentDAO{
 	@Override
 	public void save(Student student) {
 		
-		Iterator<Student> itr = FindStudent(student.getDocument());
+		ListIterator<Student> itr = FindStudent(student.getDocument());
 		
 		if(itr != null) {
 			itr.set(student);
@@ -73,7 +73,7 @@ public class StudentDAOImpl implements StudentDAO{
 	@Override
 	public boolean delete(String document) {
 		
-		Iterator<Student> itr = FindStudent(document);
+		ListIterator<Student> itr = FindStudent(document);
 		
 		if(itr != null) {
 			itr.remove();
