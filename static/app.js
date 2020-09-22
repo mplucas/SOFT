@@ -44,9 +44,33 @@ module.controller('AppController', function($http, $scope, $window, $mdDialog){
 	    });
 	};
 	
-	$scope.errorSaveSuccess = function(ev) {
+	$scope.alertSaveError = function(ev) {
 		$mdDialog.show({
 			locals:{dialogError: true, dialogText: 'Erro ao salvar.'},
+			controller: DialogController,
+			templateUrl: 'templates/shared/alertDialog.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose:true,
+			fullscreen: false
+	    });
+	};
+	
+	$scope.alertDeleteSuccess = function(ev) {
+		$mdDialog.show({
+			locals:{dialogError: false, dialogText: 'Excluido com sucesso.'},
+			controller: DialogController,
+			templateUrl: 'templates/shared/alertDialog.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose:true,
+			fullscreen: false
+	    });
+	};
+	
+	$scope.alertDeleteError = function(ev) {
+		$mdDialog.show({
+			locals:{dialogError: true, dialogText: 'Erro ao excluir.'},
 			controller: DialogController,
 			templateUrl: 'templates/shared/alertDialog.html',
 			parent: angular.element(document.body),

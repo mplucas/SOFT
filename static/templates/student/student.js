@@ -33,12 +33,9 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 			$scope.listStudents();
 			$scope.student = {};				
 			$scope.alertSaveSuccess(ev);
-			
 		},function(http, status){
 			console.log()
-			if(ev){
-				$scope.errorSaveSuccess(ev);
-			}
+			$scope.alertSaveError(ev);
 		});
 	};
 	
@@ -63,11 +60,20 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 	
 	$scope.delete = function(student){
 		
-		StudentService.delete(student.document).then(function(response){			
-			$scope.listStudents();
-		},function(http, status){
-			console.log()
-			$window.alert("n deu boa" + status);
-		});
+		var modalInstance = $uibModal.open({
+	      templateUrl: 'templates/shared/confirmDelete.html',
+	      controller: 'ConfirmDeleteCtrl',
+		  size: 'md'
+	    });
+	
+	    modalInstance.result.then(function () {
+				StudentService.delete(student.document).then(function(response){			
+				$scope.listStudents();
+				$scope.alertDeleteSuccess();
+			},function(http, status){
+				console.log()
+				$scope.alertDeleteError();				
+			});
+	    });
 	};	
 });
