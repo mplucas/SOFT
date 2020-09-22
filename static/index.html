@@ -5,6 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-aria.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-messages.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <script src="app.js"></script>
 <link rel="stylesheet" type="text/css" href="myappStyles/styles.css">
@@ -24,19 +25,19 @@
 
 <body ng-app="myApp" ng-controller="AppController" ng-init="init()">
 
-	<div style="display:flex; margin: 20px 10px 20px 10px">
+	<div style="display:flex; margin: 30px; padding-top: 30px">
 		<div layout="row" flex="10">
-			<div layout="collumn" style="margin-top:5px">
-				<div>
-					<button ng-repeat="entity in entities" ng-click="selectEntity(entity)"
-						style="margin:5px; padding:5px" ng-disabled="entity.disabled">
+			<div layout="column" style="margin-top:5px">
+				<div flex="100">
+					<button ng-repeat="entity in entities" ng-click="selectEntity(entity)" ng-disabled="entity.disabled"
+						style="width:100%; margin-bottom:2px; border:1px solid black; border-radius: 5px 0 0 5px; border-right:0" class="btn btn-light">
 						{{entity.display}}
 					</button>
 				</div>
 			</div>			
 		</div>
-		<div layout="row" flex="90">
-			<div flex="100" ng-include="selectedEntityPath" style="margin-top:30px"></div>
+		<div layout="row" flex="90" style="padding:30px; padding-top:0; border:1px solid black; height:100%">
+			<div flex="100" ng-include="selectedEntityPath"></div>
 		</div>
 	</div>
 	

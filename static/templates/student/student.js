@@ -6,14 +6,14 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 	$scope.student = {};
 	
 	$scope.cols = [
-		{name: 'document', widthInPercentage: '30' },
-		{name: 'name', widthInPercentage: '30' },
-		{name: 'fatherName', widthInPercentage: '20' },
-		{name: 'motherName', widthInPercentage: '20' },
-		{name: 'fatherPhone', widthInPercentage: '20' },
-		{name: 'motherPhone', widthInPercentage: '20' },
-		{name: 'parentsEmail', widthInPercentage: '20' },
-		{name: 'birth', widthInPercentage: '20', isDate: true }
+		{name: 'document', display: 'Documento', widthInPercentage: '30' },
+		{name: 'name', display: 'Nome', widthInPercentage: '30' },
+		{name: 'fatherName', display: 'Nome do Pai', widthInPercentage: '20' },
+		{name: 'motherName', display: 'Nome da Mae', widthInPercentage: '20' },
+		{name: 'fatherPhone', display: 'Tel. Pai', widthInPercentage: '20' },
+		{name: 'motherPhone', display: 'Tel. Mae', widthInPercentage: '20' },
+		{name: 'parentsEmail', display: 'E-mail', widthInPercentage: '20' },
+		{name: 'birth', display: 'Dt. Nascimento', widthInPercentage: '20', isDate: true }
 	];
 	
 	$scope.listStudents = function(){
@@ -29,13 +29,23 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 	
 	$scope.listStudents();
 	
-	$scope.save = function(){
+	$scope.cancel = function(){
+		
+		$scope.student = {};
+	};
+	
+	$scope.save = function(ev){
 		StudentService.save($scope.student).then(function(response){
 			$scope.listStudents();
 			$scope.student = {};
+			if(ev){				
+				$scope.alertSaveSuccess(ev);
+			}
 		},function(http, status){
 			console.log()
-			$window.alert("n deu boa" + status);
+			if(ev){
+				$scope.errorSaveSuccess(ev);
+			}
 		});
 	};
 	

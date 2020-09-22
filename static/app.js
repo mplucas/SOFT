@@ -2,7 +2,7 @@
 
 var module = angular.module('myApp', ['ngMaterial']);
 
-module.controller('AppController', function($http, $scope, $window){
+module.controller('AppController', function($http, $scope, $window, $mdDialog){
 
 	$scope.init = function(){
 
@@ -22,6 +22,38 @@ module.controller('AppController', function($http, $scope, $window){
 		};
 		
 		$scope.selectEntity($scope.entities[2]);
+	};
+	
+	function DialogController($scope, $mdDialog, dialogError, dialogText) {
+		$scope.dialogError = dialogError;
+		$scope.dialogText = dialogText;
+        $scope.ok = function() {
+	      $mdDialog.hide();
+	    };
+  	};
+	
+	$scope.alertSaveSuccess = function(ev) {
+		$mdDialog.show({
+			locals:{dialogError: false, dialogText: 'Salvo com sucesso.'},
+			controller: DialogController,
+			templateUrl: 'templates/shared/alertDialog.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose:true,
+			fullscreen: false
+	    });
+	};
+	
+	$scope.errorSaveSuccess = function(ev) {
+		$mdDialog.show({
+			locals:{dialogError: true, dialogText: 'Erro ao salvar.'},
+			controller: DialogController,
+			templateUrl: 'templates/shared/alertDialog.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose:true,
+			fullscreen: false
+	    });
 	};
 
 });

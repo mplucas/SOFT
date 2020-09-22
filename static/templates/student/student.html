@@ -1,20 +1,39 @@
-<div ng-controller="StudentController">
+<div style="display:flex; height:100%" layout="column" ng-controller="StudentController" id="popupContainer">
 	
-	<label>Nome do Aluno: </label><input type="text" ng-model="student.name"/><br>
-	<label>Nome do Pai: </label><input type="text" ng-model="student.fatherName"/><br>
-	<label>Nome da Mae: </label><input type="text" ng-model="student.motherName"/><br>
-	<div flex="80" layou="row">
-		<div flex="50"><label>Telefone do Pai: </label><input type="text" ng-model="student.fatherPhone"/></div>
-		<div flex="50"><label>Telefone da Mae: </label><input type="text" ng-model="student.motherPhone"/></div>
-	</div>
-	<label>E-mail dos pais: </label><input type="text" ng-model="student.parentsEmail"/><br>
-	<label>Documento do aluno: </label><input type="text" ng-model="student.document"/><br>
-	<label>Data de Nascimento: </label><input type="date" ng-model="student.birth" class="input-sm spacing"/> <br>
-	<br><br>
-	<button ng-click="save()" class="btn btn-sm btn-info">Save</button><br>
-	
-	<div style="margin-top:5px">
-		<truers-grid items="students" cols="cols" on-update="update" on-delete="delete"></truers-grid>
-	</div>
+	<md-tabs style="height:100%" md-dynamic-height="true">
+	  <md-tab label="Cadastrar Aluno">
+	  
+	  	<div layout="row" layout-align="center center">
+			<h2>Cadastrar aluno</h2>
+		</div>
+		
+		<div layout="column" class="form-fields">
+			<div flex="80" layout="row"><label flex="15">Nome do Aluno: </label><input type="text" flex="50" ng-model="student.name"/></div>
+			<div flex="80" layout="row"><label flex="15">Nome do Pai: </label><input type="text" flex="50" ng-model="student.fatherName"/></div>
+			<div flex="80" layout="row"><label flex="15">Nome da Mae: </label><input type="text" flex="50" ng-model="student.motherName"/></div>
+			<div flex="80" layout="row">
+				<label flex="15">Telefone do Pai: </label><input type="text" flex="15" ng-model="student.fatherPhone"/>
+				<label flex="15" style="padding-left:10px">Telefone da Mae: </label><input type="text" flex="20" ng-model="student.motherPhone"/>
+			</div>
+			<div flex="80" layout="row"><label flex="15">E-mail dos pais: </label><input type="text" flex="50" ng-model="student.parentsEmail"/></div>
+			<div flex="80" layout="row"><label flex="15">Documento do aluno: </label><input type="text" flex="50" ng-model="student.document"/></div>
+			<div flex="80" layout="row"><label flex="15">Data de Nascimento: </label><input type="date" flex="50" ng-model="student.birth" class="input-sm spacing"/></div>
+		</div>	
+		
+		<div layout="row" layout-align="end center">
+			<button ng-click="cancel()" class="btn btn-danger" style="margin-right:5px">Cancelar</button><br>
+			<button ng-click="save($event)" ng-disabled="!student.document" class="btn btn-success">Confirmar</button><br>
+		</div>
+	  
+	  </md-tab>
+	  
+	  <md-tab label="Consultar Aluno">
+	  	
+	  	<div style="margin-top:5px">
+			<truers-grid items="students" cols="cols" on-update="update" on-delete="delete"></truers-grid>
+		</div>
+	  	
+	  </md-tab>
+	</md-tabs>
 	
 </div>

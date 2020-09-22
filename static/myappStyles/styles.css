@@ -40,3 +40,11 @@ tr:nth-child(even) {
 .margins-divs {
     margin-right: 5px;
 }
+
+.form-fields > div{
+	padding:2px;
+}
+
+md-content md-tabs md-tab-content {
+  border: 1px border black;
+}

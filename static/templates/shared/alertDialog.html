@@ -1,0 +1,21 @@
+<md-dialog aria-label="{{title}}">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Informacao</h2>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <h5>{{dialogText}}</h5>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <button ng-click="ok()" class="btn" ng-class="{'btn-danger': dialogError, 'btn-success': !dialogError}">
+        Confirmar
+      </button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
