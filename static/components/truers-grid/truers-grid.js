@@ -10,6 +10,7 @@ module.component('truersGrid', {
 	cols: '=',
 	onUpdate: '<',
 	onDelete: '<',
+	onView: '<',
   },
   templateUrl: '/components/truers-grid/truers-grid.html',
   controller: TruersGridController

@@ -1,0 +1,24 @@
+<div style="display:flex; margin:30px" layout="column">
+	<div layout="row" layout-align="center center" style="margin-bottom: 15px">
+		<h2>Visualizar aluno</h2>
+	</div>
+	
+	<div layout="column" class="form-fields" style="margin-bottom: 15px">
+		<div flex="100" layout="row"><label flex="20">Nome do Aluno: </label><span flex="60">{{student.name}}</span></div>
+		<div flex="100" layout="row">
+			<label flex="20">Nome do Pai: </label><span flex="30">{{student.fatherName}}</span>
+			<label flex="20">Telefone do Pai: </label><span flex="30">{{student.fatherPhone}}</span>
+		</div>
+		<div flex="100" layout="row">
+			<label flex="20">Nome da Mae: </label><span flex="30">{{student.motherName}}</span>
+			<label flex="20">Telefone da Mae: </label><span flex="30">{{student.motherPhone}}</span>
+		</div>
+		<div flex="100" layout="row"><label flex="20">E-mail dos pais: </label><span flex="60">{{student.parentsEmail}}</span></div>
+		<div flex="100" layout="row"><label flex="20">Documento do aluno: </label><span flex="60">{{student.document}}</span></div>
+		<div flex="100" layout="row"><label flex="20">Data de Nascimento: </label><span flex="60">{{student.birth | date : 'dd/MM/yyyy'}}</span></div>
+	</div>	
+	
+	<div layout="row" layout-align="end center">
+		<button ng-click="back()" class="btn btn-success" style="margin-right:5px">Voltar</button>
+	</div>
+</div>

@@ -1,11 +1,16 @@
-<table>
+<div style="display: flex" layout="row">
+	<input type="text" class="form-control" placeholder="Pesquisa" ng-model="searchText" style="max-width:25%; margin-right:10px">
+	<button ng-click="searchText = ''" class="btn btn-danger">Limpar</button>
+</div>
+
+<table style="margin-top: 15px">
 	<tr>
 		<th ng-repeat="col in $ctrl.cols" flex="{{col.flex}}">
 			{{col.display}}
 		</th>
 		<th ng-if="$ctrl.onUpdate" flex="20">Opcoes</th>
 	</tr>
-	<tr ng-repeat="item in $ctrl.items">
+	<tr ng-repeat="item in $ctrl.items | filter:searchText">
 		<td ng-repeat="col in $ctrl.cols" flex="{{col.flex}}">
 			{{ !col.isDate ? item[col.name] : (item[col.name] | date:'dd/MM/yyyy')}}
 		</td>
@@ -13,6 +18,9 @@
 		<td flex="20">
 			<button ng-if="$ctrl.onUpdate" ng-click="$ctrl.onUpdate(item)" class="btn btn-light">
 				<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+			</button>
+			<button ng-if="$ctrl.onView" ng-click="$ctrl.onView(item)" class="btn btn-light">
+				<i class="fa fa-search" aria-hidden="true"></i>
 			</button>
 			<button ng-if="$ctrl.onDelete" ng-click="$ctrl.onDelete(item)" class="btn btn-light">
 				<i class="fa fa-trash" style="color:red" aria-hidden="true"></i>

@@ -76,4 +76,18 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 			});
 	    });
 	};	
+	
+	$scope.view = function(student){
+		
+		var modalInstance = $uibModal.open({
+	      templateUrl: 'templates/student/viewStudent.html',
+	      controller: 'ViewStudentCtrl',
+		  size: 'lg',
+		  resolve: {
+	        student: function () {
+	          return angular.copy(student);
+	        }
+	      }
+	    });
+	};	
 });
