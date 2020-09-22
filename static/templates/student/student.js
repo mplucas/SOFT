@@ -1,19 +1,13 @@
 'use strict'
 
-module.controller('StudentController', function($http, $scope, $window, StudentService){
+module.controller('StudentController', function($http, $scope, $window, StudentService, $uibModal){
 	
 	$scope.students = [{}];
 	$scope.student = {};
 	
 	$scope.cols = [
-		{name: 'document', display: 'Documento', widthInPercentage: '30' },
-		{name: 'name', display: 'Nome', widthInPercentage: '30' },
-		{name: 'fatherName', display: 'Nome do Pai', widthInPercentage: '20' },
-		{name: 'motherName', display: 'Nome da Mae', widthInPercentage: '20' },
-		{name: 'fatherPhone', display: 'Tel. Pai', widthInPercentage: '20' },
-		{name: 'motherPhone', display: 'Tel. Mae', widthInPercentage: '20' },
-		{name: 'parentsEmail', display: 'E-mail', widthInPercentage: '20' },
-		{name: 'birth', display: 'Dt. Nascimento', widthInPercentage: '20', isDate: true }
+		{name: 'document', display: 'Documento', flex: '40' },
+		{name: 'name', display: 'Nome', flex: '40' }
 	];
 	
 	$scope.listStudents = function(){
@@ -37,10 +31,9 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 	$scope.save = function(ev){
 		StudentService.save($scope.student).then(function(response){
 			$scope.listStudents();
-			$scope.student = {};
-			if(ev){				
-				$scope.alertSaveSuccess(ev);
-			}
+			$scope.student = {};				
+			$scope.alertSaveSuccess(ev);
+			
 		},function(http, status){
 			console.log()
 			if(ev){
@@ -51,7 +44,21 @@ module.controller('StudentController', function($http, $scope, $window, StudentS
 	
 	$scope.update = function(student){
 		
-		$scope.student = angular.copy(student);
+	    var modalInstance = $uibModal.open({
+	      templateUrl: 'templates/student/updateStudent.html',
+	      controller: 'UpdateStudentCtrl',
+		  size: 'lg',
+	      resolve: {
+	        student: function () {
+	          return angular.copy(student);
+	        }
+	      }
+	    });
+	
+	    modalInstance.result.then(function (student, ev) {
+			$scope.student = student;
+	      	$scope.save(ev);
+	    });
 	};
 	
 	$scope.delete = function(student){

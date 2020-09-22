@@ -1,0 +1,23 @@
+<div style="display:flex; margin:30px" layout="column">
+	<div layout="row" layout-align="center center" style="margin-bottom: 15px">
+		<h2>Editar aluno</h2>
+	</div>
+	
+	<div layout="column" class="form-fields" style="margin-bottom: 15px">
+		<div flex="100" layout="row"><label flex="20">Nome do Aluno: </label><input type="text" flex="60" ng-model="student.name"/></div>
+		<div flex="100" layout="row"><label flex="20">Nome do Pai: </label><input type="text" flex="60" ng-model="student.fatherName"/></div>
+		<div flex="100" layout="row"><label flex="20">Nome da Mae: </label><input type="text" flex="60" ng-model="student.motherName"/></div>
+		<div flex="100" layout="row">
+			<label flex="20">Telefone do Pai: </label><input type="text" flex="20" ng-model="student.fatherPhone"/>
+			<label flex="20" style="padding-left:10px">Telefone da Mae: </label><input type="text" flex="20" ng-model="student.motherPhone"/>
+		</div>
+		<div flex="100" layout="row"><label flex="20">E-mail dos pais: </label><input type="text" flex="60" ng-model="student.parentsEmail"/></div>
+		<div flex="100" layout="row"><label flex="20">Documento do aluno: </label><input type="text" flex="60" ng-model="student.document"/></div>
+		<div flex="100" layout="row"><label flex="20">Data de Nascimento: </label><input type="date" flex="60" ng-model="student.birth" class="input-sm spacing"/></div>
+	</div>	
+	
+	<div layout="row" layout-align="end center">
+		<button ng-click="cancel()" class="btn btn-danger" style="margin-right:5px">Cancelar</button><br>
+		<button ng-click="save($event)" ng-disabled="!student.document" class="btn btn-success">Confirmar</button><br>
+	</div>
+</div>

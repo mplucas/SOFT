@@ -1,6 +1,6 @@
 'use strict'
 
-var module = angular.module('myApp', ['ngMaterial']);
+var module = angular.module('myApp', ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']);
 
 module.controller('AppController', function($http, $scope, $window, $mdDialog){
 
