@@ -24,7 +24,7 @@ public class StudentDAOImpl implements StudentDAO{
 				"999999999", "999999999", "paisdoandre@gmail.com", new Timestamp(dateFormat.parse("15/07/2013").getTime())));
 	}
 	
-	private ListIterator<Student> FindStudent(String document) {
+	public ListIterator<Student> FindStudent(String document) {
 		
 		ListIterator<Student> itr = students.listIterator();
 		
